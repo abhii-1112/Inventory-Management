@@ -1,0 +1,40 @@
+.format-select {
+  display: flex;
+  gap: 20px;
+  margin: 16px 0;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.job-status {
+  margin-top: 20px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  max-width: 400px;
+}
+
+.success {
+  color: #16a34a;
+  font-weight: 500;
+}
+
+.error {
+  color: #dc2626;
+}

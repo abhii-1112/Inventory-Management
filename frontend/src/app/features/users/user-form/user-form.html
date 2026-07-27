@@ -1,0 +1,30 @@
+<h2>{{ isEditMode() ? 'Edit User' : 'New User' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input id="email" type="email" formControlName="email" placeholder="user@example.com" />
+    @if (form.get('email')?.invalid && form.get('email')?.touched) {
+      <span class="field-error">Valid email is required.</span>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password {{ isEditMode() ? '(leave blank to keep current)' : '' }}</label>
+    <input id="password" type="password" formControlName="password" placeholder="••••••••" />
+    @if (form.get('password')?.invalid && form.get('password')?.touched) {
+      <span class="field-error">Password must be at least 6 characters.</span>
+    }
+  </div>
+
+  @if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+  }
+
+  <div class="form-actions">
+    <button type="submit" class="btn-primary" [disabled]="loading()">
+      {{ loading() ? 'Saving...' : (isEditMode() ? 'Update' : 'Create') }}
+    </button>
+    <button type="button" (click)="onCancel()" class="btn-secondary">Cancel</button>
+  </div>
+</form>

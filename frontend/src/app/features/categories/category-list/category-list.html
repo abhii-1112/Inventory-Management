@@ -1,0 +1,41 @@
+<div class="header">
+  <h2>Categories</h2>
+  <a routerLink="/categories/new" class="btn-primary">+ New Category</a>
+</div>
+
+@if (loading()) {
+  <p>Loading categories...</p>
+}
+
+@if (errorMessage()) {
+  <p class="error">{{ errorMessage() }}</p>
+}
+
+@if (!loading() && !errorMessage()) {
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Created At</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (category of categories(); track category.id) {
+        <tr>
+          <td>{{ category.name }}</td>
+          <td>{{ category.createdAt | date: 'medium' }}</td>
+          <td>
+            <a [routerLink]="['/categories', category.id, 'edit']">Edit</a>
+            <button (click)="deleteCategory(category.id, category.name)" class="btn-danger">Delete</button>
+          </td>
+        </tr>
+      }
+      @empty {
+        <tr>
+          <td colspan="3">No categories yet. Create one to get started.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

@@ -1,0 +1,10 @@
+.form { max-width: 400px; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 500; }
+.form-group input { width: 100%; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; box-sizing: border-box; }
+.field-error { color: #dc2626; font-size: 12px; display: block; margin-top: 4px; }
+.form-actions { display: flex; gap: 8px; margin-top: 20px; }
+.btn-primary { background-color: #2563eb; color: white; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-secondary { background-color: #e2e8f0; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; }
+.error { color: #dc2626; font-size: 14px; }

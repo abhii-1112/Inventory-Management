@@ -1,0 +1,47 @@
+<h2>Bulk Upload Products</h2>
+<p class="hint">Upload a CSV or Excel file with columns: <code>name, price, category</code></p>
+
+<div class="upload-box">
+  <input type="file" accept=".csv,.xlsx,.xls" (change)="onFileSelected($event)" />
+  <button class="btn-primary" (click)="onUpload()" [disabled]="uploading()">
+    {{ uploading() ? 'Uploading...' : 'Upload' }}
+  </button>
+</div>
+
+@if (errorMessage()) {
+  <p class="error">{{ errorMessage() }}</p>
+}
+
+@if (job()) {
+  <div class="job-status">
+    <p>Status: <strong>{{ job()!.status }}</strong></p>
+
+    @if (job()!.status === 'processing' || job()!.status === 'completed') {
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="progressPercent()"></div>
+      </div>
+      <p>{{ job()!.processedRows }} / {{ job()!.totalRows }} rows processed</p>
+    }
+
+    @if (job()!.status === 'completed') {
+      <p class="success">
+        ✅ Done — {{ job()!.processedRows }} succeeded, {{ job()!.failedRows }} failed.
+      </p>
+    }
+
+    @if (job()!.errors && job()!.errors.length > 0) {
+      <div class="errors-list">
+        <p>Errors:</p>
+        <ul>
+          @for (err of job()!.errors; track err) {
+            <li>{{ err }}</li>
+          }
+        </ul>
+      </div>
+    }
+
+    @if (job()!.status === 'failed') {
+      <p class="error">❌ Upload failed.</p>
+    }
+  </div>
+}

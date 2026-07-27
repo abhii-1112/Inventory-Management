@@ -1,0 +1,39 @@
+<h2>Product Reports</h2>
+
+<div class="format-select">
+  <label>
+    <input type="radio" name="format" value="csv" [checked]="format() === 'csv'" (change)="format.set('csv')" />
+    CSV
+  </label>
+  <label>
+    <input type="radio" name="format" value="xlsx" [checked]="format() === 'xlsx'" (change)="format.set('xlsx')" />
+    Excel (XLSX)
+  </label>
+</div>
+
+<button class="btn-primary" (click)="onRequestReport()" [disabled]="requesting()">
+  {{ requesting() ? 'Starting...' : 'Generate Report' }}
+</button>
+
+@if (errorMessage()) {
+  <p class="error">{{ errorMessage() }}</p>
+}
+
+@if (job()) {
+  <div class="job-status">
+    <p>Status: <strong>{{ job()!.status }}</strong></p>
+
+    @if (job()!.status === 'pending' || job()!.status === 'processing') {
+      <p>⏳ Generating your report, please wait...</p>
+    }
+
+    @if (job()!.status === 'completed') {
+      <p class="success">✅ Report ready!</p>
+      <a [href]="getDownloadUrl(job()!.id)" class="btn-primary" download>Download Report</a>
+    }
+
+    @if (job()!.status === 'failed') {
+      <p class="error">❌ Report generation failed: {{ job()!.error }}</p>
+    }
+  </div>
+}

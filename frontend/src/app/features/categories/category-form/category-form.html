@@ -1,0 +1,30 @@
+<h2>{{ isEditMode() ? 'Edit Category' : 'New Category' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+  <div class="form-group">
+    <label for="name">Category Name</label>
+    <input id="name" type="text" formControlName="name" placeholder="e.g. Electronics" />
+
+    @if (form.get('name')?.invalid && form.get('name')?.touched) {
+      <span class="field-error">
+        @if (form.get('name')?.errors?.['required']) {
+          Name is required.
+        }
+        @if (form.get('name')?.errors?.['minlength']) {
+          Name must be at least 2 characters.
+        }
+      </span>
+    }
+  </div>
+
+  @if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+  }
+
+  <div class="form-actions">
+    <button type="submit" class="btn-primary" [disabled]="loading()">
+      {{ loading() ? 'Saving...' : (isEditMode() ? 'Update' : 'Create') }}
+    </button>
+    <button type="button" (click)="onCancel()" class="btn-secondary">Cancel</button>
+  </div>
+</form>
